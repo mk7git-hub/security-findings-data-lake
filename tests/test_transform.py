@@ -4,7 +4,7 @@ import pathlib
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1] / "src"))
-import transform as t  # noqa: E402
+import transform as t
 
 GD = {"source": "aws.guardduty", "detail-type": "GuardDuty Finding", "detail": {
     "id": "gd-1", "accountId": "111122223333", "region": "us-east-1", "type": "UnauthorizedAccess:EC2/SSHBruteForce",

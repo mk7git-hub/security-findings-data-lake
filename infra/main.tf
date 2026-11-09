@@ -185,8 +185,9 @@ resource "aws_lambda_function" "transform" {
   source_code_hash               = data.archive_file.zip.output_base64sha256
   timeout                        = 60
   memory_size                    = 256
-  reserved_concurrent_executions = 10
-  kms_key_arn                    = aws_kms_key.lake.arn
+  reserved_concurrent_executions = var.reserved_concurrency
+  #checkov:skip=CKV_AWS_115:New accounts have a 10-concurrency limit and AWS keeps 10 unreserved; set var.reserved_concurrency once the limit is raised
+  kms_key_arn = aws_kms_key.lake.arn
   tracing_config { mode = "PassThrough" }
   #checkov:skip=CKV_AWS_117:Pure transform, no network access needed
   #checkov:skip=CKV_AWS_116:Firehose retries and writes failures to the error prefix; a DLQ would duplicate that
